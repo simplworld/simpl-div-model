@@ -2,28 +2,35 @@
 
 ## Python Setup (assumes Python >= 3.6 and simpl-games-api server running)
 
-    git clone git@github.com:simplworld/simpl-div-model.git
-    cd simpl-div-model
-    mkvirtualenv simpl-div-model
-    add2virtualenv .
-    
-    PIP_PROCESS_DEPENDENCY_LINKS=1 pip install -r requirements.txt
+```shell
+$ git clone git@github.com:simplworld/simpl-div-model.git
+$ cd simpl-div-model
+$ mkvirtualenv simpl-div-model
+$ add2virtualenv .
+
+$ PIP_PROCESS_DEPENDENCY_LINKS=1 pip install -r requirements.txt
+```
 
 ## Run model service
 
-    export DJANGO_SETTINGS_MODULE=simpl_div_model.settings
-    ./manage.py run_modelservice
-
+```shell
+$ export DJANGO_SETTINGS_MODULE=simpl_div_model.settings
+$ ./manage.py run_modelservice
+```
 If you need some serious debugging help, the model_service includes the ability to do
 
-    ./manage.py run_modelservice --loglevel=debug
+```shell
+$ ./manage.py run_modelservice --loglevel=debug
+```
 
 Which will turn on verbose debugging of the Autobahn/Crossbar daemon to help debug interactions between the browser and model service backend.
 
 ## Run unit tests
 
-    export DJANGO_SETTINGS_MODULE=simpl_div_model.settings
-    py.test
+```shell
+$ export DJANGO_SETTINGS_MODULE=simpl_div_model.settings
+$ py.test
+```
 
 ## Development commands:
 
@@ -37,11 +44,13 @@ Which will turn on verbose debugging of the Autobahn/Crossbar daemon to help deb
 
 execute:
 
-    ./manage.py create_default_env
+```shell
+$ ./manage.py create_default_env
+```
 
 To make it easier to recreate the default run you can pass the `--reset` option to delete the
 default run and recreate it from scratch like this:
 
-    ./manage.py create_default_env --reset
-
-
+```shell
+$ ./manage.py create_default_env --reset
+```
