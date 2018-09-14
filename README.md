@@ -8,7 +8,7 @@ $ cd simpl-div-model
 $ mkvirtualenv simpl-div-model
 $ add2virtualenv .
 
-$ PIP_PROCESS_DEPENDENCY_LINKS=1 pip install -r requirements.txt
+$ pip install -r requirements.txt
 ```
 
 ## Run model service
