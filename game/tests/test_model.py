@@ -14,9 +14,9 @@ class ModelTestCase(TestCase):
 
     def test_result_5(self):
         result = self.m.step(1.25, 0.25)
-        self.assertEquals(result, 5)
+        self.assertEqual(result, 5)
 
     def test_result_fraction(self):
         result = self.m.step(1, 2)
-        self.assertEquals(result, 0.5)
+        self.assertEqual(result, 0.5)
 
