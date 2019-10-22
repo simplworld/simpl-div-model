@@ -76,15 +76,15 @@ def command(reset):
 
     # Add run with 2 fully populated worlds ready to play
     run = add_run(game, 'default', 2, 1,
-                        dividend_role, divisor_role,
-                        play_phase, games_client)
+                  dividend_role, divisor_role,
+                  play_phase, games_client)
 
     # echo('Completed setting up run: id=', run.id)
 
 
 def add_run(game, run_name, world_count, first_user_number,
-                  dividend_role, divisor_role,
-                  phase, games_client):
+            dividend_role, divisor_role,
+            phase, games_client):
     # Create or get a Run
     run = games_client.runs.get_or_create(
         game=game.id,
@@ -106,8 +106,8 @@ def add_run(game, run_name, world_count, first_user_number,
 
         # Add users to run
         add_world_users(run, world, user_name_root,
-                              first_user_number + n * 2,
-                              dividend_role, divisor_role, games_client)
+                        first_user_number + n * 2,
+                        dividend_role, divisor_role, games_client)
 
     return run
 
@@ -137,8 +137,8 @@ def add_world(run, number, games_client):
 
 
 def add_world_users(run, world, user_name_root,
-                          first_number,
-                          dividend_role, divisor_role, games_client):
+                    first_number,
+                    dividend_role, divisor_role, games_client):
     """
         Add 1 leader ("leader") to the run with a test scenario
         Add players to the run with names based on user_name_root and first_number
@@ -163,11 +163,11 @@ def add_world_users(run, world, user_name_root,
     for n in range(len(roles)):
         user_number = n + first_number
         add_player(user_name_root, user_number, run, world, roles[n],
-                         games_client)
+                   games_client)
 
 
 def add_player(user_name_root, user_number, run, world, role,
-                     games_client):
+               games_client):
     """Add player with name based on user_name_root and user_number to world in role"""
 
     username = '{}{}'.format(user_name_root, user_number)
@@ -193,4 +193,4 @@ def add_player(user_name_root, user_number, run, world, role,
         role=role.id,
     )
     echo('getting or creating runuser for user: ', user.email)
-
+    
