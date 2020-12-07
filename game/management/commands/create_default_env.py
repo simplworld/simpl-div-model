@@ -186,11 +186,22 @@ def add_player(user_name_root, user_number, run, world, role,
     )
     echo('getting or creating user: ', user.email)
 
-    games_client.runusers.get_or_create(
+    runuser = games_client.runusers.get_or_create(
         user=user.id,
         run=run.id,
         world=world.id,
         role=role.id,
     )
     echo('getting or creating runuser for user: ', user.email)
-    
+
+    # for test purposes only
+
+    scenario = games_client.scenarios.create({
+        'runuser': runuser.id,
+        'name': 'Test Scenario 1'
+    })
+    period1 = games_client.periods.create({
+        'scenario': scenario.id,
+        'order': 1
+    })
+    echo('getting or creating test scenario for user: ', user.email)
