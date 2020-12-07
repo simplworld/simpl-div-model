@@ -124,14 +124,14 @@ def add_world(run, number, games_client):
     )
     echo('getting or creating world: ', world.name)
 
-    scenario = games_client.scenarios.create({
-        'world': world.id,
-        'name': 'World Scenario 1'
-    })
-    period1 = games_client.periods.create({
-        'scenario': scenario.id,
-        'order': 1
-    })
+    scenario = games_client.scenarios.get_or_create(
+        world=world.id,
+        name='World Scenario 1'
+    )
+    period1 = games_client.periods.get_or_create(
+        scenario=scenario.id,
+        order=1
+    )
 
     return world
 
@@ -195,13 +195,12 @@ def add_player(user_name_root, user_number, run, world, role,
     echo('getting or creating runuser for user: ', user.email)
 
     # for test purposes only
-
-    scenario = games_client.scenarios.create({
-        'runuser': runuser.id,
-        'name': 'Test Scenario 1'
-    })
-    period1 = games_client.periods.create({
-        'scenario': scenario.id,
-        'order': 1
-    })
+    scenario = games_client.scenarios.get_or_create(
+        runuser=runuser.id,
+        name='Test Scenario 1'
+    )
+    period1 = games_client.periods.get_or_create(
+        scenario=scenario.id,
+        order=1
+    )
     echo('getting or creating test scenario for user: ', user.email)
