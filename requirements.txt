@@ -1,4 +1,4 @@
-git+https://github.com/simplworld/simpl-modelservice.git
+simpl-modelservice==0.9.1
 
 # tests
 pytest==4.6.3
