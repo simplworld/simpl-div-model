@@ -1,4 +1,4 @@
-git+https://github.com/simplworld/simpl-modelservice.git@load-run-data-on-demand
+simpl-modelservice==0.9.1
 
 # tests
 pytest==4.6.3
