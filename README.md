@@ -58,7 +58,7 @@ This means the simpl-div-model is able to successfully communicate with the API.
 
 ## Local Setup Without Docker
 
-### Create a virtual environment
+### Create a virtual environment and install Python dependencies
 
 ```bash
 $ mkvirtualenv simpl-div-model
