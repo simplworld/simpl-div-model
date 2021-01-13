@@ -57,10 +57,14 @@ Game `simpl-div` installed in 2.063s.
 This means the simpl-div-model is able to successfully communicate with the API.
 
 ## Local Setup Without Docker
+
+### Create a virtual environment
+
+```bash
+$ mkvirtualenv simpl-div-model
 $ pip install -r requirements.txt
 ```
-
-## Run model service
+### Run model service
 
 ```shell
 $ export DJANGO_SETTINGS_MODULE=simpl_div_model.settings
@@ -74,7 +78,7 @@ $ ./manage.py run_modelservice --loglevel=debug
 
 Which will turn on verbose debugging of the Autobahn/Crossbar daemon to help debug interactions between the browser and model service backend.
 
-## Run model service as 2 processes
+### Run model service as 2 processes
 
 1. Get a copy of the currently in use crossbar configuration by running
     `./manage.py run_modelservice --print-config > config.json`
@@ -83,8 +87,7 @@ Which will turn on verbose debugging of the Autobahn/Crossbar daemon to help deb
     `./manage.py run_modelservice --config=./config.json --loglevel info --settings=simpl_div_model.settings`
 1. In a separate terminal, run guest service:    
     `HOSTNAME=localhost PORT=8080 ./manage.py run_guest --settings=simpl_div_model.settings`
-
-
+   
 ## Run unit tests
 
 ```shell

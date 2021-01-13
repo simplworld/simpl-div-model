@@ -12,7 +12,7 @@ services:
       - "8080:8080"
     command: /code/manage.py run_modelservice --loglevel=info 
     environment:
-      - DJANGO_SETTINGS_MODULE=simpl_calc_model.settings
+      - DJANGO_SETTINGS_MODULE=simpl_div_model.settings
       - SIMPL_GAMES_URL=http://api:8000/apis/
       - CALLBACK_URL=http://model.backend:8080/callback
     stop_signal: SIGTERM
