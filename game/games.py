@@ -1,6 +1,6 @@
 import asyncio
 
-from modelservice.games import Period, Game
+from modelservice.games import Period, Run, Game
 from modelservice.games import subscribe, register
 
 from .runmodel import divide, save_decision
@@ -32,7 +32,7 @@ class SimplDivPeriod(Period):
         self.session.log.info(
             "submit_decision: saved decision for role {}".format(role_name))
 
-        #pause while the scopes update
+        # pause while the scopes update
         await asyncio.sleep(0.01)
 
         if len(self.decisions) == 2:
@@ -42,6 +42,14 @@ class SimplDivPeriod(Period):
         return 'ok'
 
 
+class SimplDivRun(Run):
+
+    async def on_advance_phase(self, next_phase):
+        """ invoked when framework advance_phase is called """
+        self.session.log.info("on_advance_phase: next_phase={phase}",
+                              phase=next_phase.json['name'])
+
+
 Game.register('simpl-div', [
-    SimplDivPeriod,
+    SimplDivPeriod, SimplDivRun
 ])
