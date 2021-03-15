@@ -1,17 +1,70 @@
 # simpl-div-model - example multi player simulation model service.
 
-## Python Setup (assumes Python >= 3.6 and simpl-games-api server running)
+## Python Setup (assumes Python 3.6 and simpl-games-api server running)
+
+## Install simpl-div-model
 
 ```shell
-$ git clone git@github.com:simplworld/simpl-div-model.git
+$ git clone https://github.com/simplworld/simpl-div-model.git
 $ cd simpl-div-model
-$ mkvirtualenv simpl-div-model
-$ add2virtualenv .
+```
+## Local Docker Setup
 
-$ pip install -r requirements.txt
+The Simpl API server needs to be started first to create the `simpl` bridge network.
+
+Install [simpl-games-api master](https://github.com/simplworld/simpl-games-api) and run it in 
+docker-compose so that it exposes itself as hostname `api` on port `8100`. 
+
+You also need to have a `is_staff=True` user in the simpl-games-api database that
+corresponds to the `SIMPL_GAMES_AUTH` setting used here.
+
+After you clone the repo, run:
+
+```bash
+$ docker-compose up
 ```
 
-## Run model service
+this will create the Docker image and run it.  The first time you run it it will error
+as it can't find the simpl-div game in the API.
+
+In a separate terminal, create a shell into the simpl-div-model container by running:
+
+```bash
+$ docker-compose run --rm model.backend bash
+```
+
+Once you are in the container shell, run this command:
+
+```shell
+$ ./manage.py create_default_env
+```
+
+You should see this create the 'simpl-div' game, phases, users, etc.
+
+Exit from the shell then stop and restart the docker container by running these commands: 
+
+```bash
+$ docker-compose down
+$ docker-compose up
+```
+
+You should now see a startup log message to the effect of:
+
+```
+Game `simpl-div` installed in 2.063s.
+```
+
+This means the simpl-div-model is able to successfully communicate with the API.
+
+## Local Setup Without Docker
+
+### Create a virtual environment and install Python dependencies
+
+```bash
+$ mkvirtualenv simpl-div-model
+$ pip install -r requirements.txt
+```
+### Run model service
 
 ```shell
 $ export DJANGO_SETTINGS_MODULE=simpl_div_model.settings
@@ -25,7 +78,7 @@ $ ./manage.py run_modelservice --loglevel=debug
 
 Which will turn on verbose debugging of the Autobahn/Crossbar daemon to help debug interactions between the browser and model service backend.
 
-## Run model service as 2 processes
+### Run model service as 2 processes
 
 1. Get a copy of the currently in use crossbar configuration by running
     `./manage.py run_modelservice --print-config > config.json`
@@ -34,8 +87,7 @@ Which will turn on verbose debugging of the Autobahn/Crossbar daemon to help deb
     `./manage.py run_modelservice --config=./config.json --loglevel info --settings=simpl_div_model.settings`
 1. In a separate terminal, run guest service:    
     `HOSTNAME=localhost PORT=8080 ./manage.py run_guest --settings=simpl_div_model.settings`
-
-
+   
 ## Run unit tests
 
 ```shell
