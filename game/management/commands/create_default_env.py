@@ -9,19 +9,18 @@ def echo(text, value):
     )
 
 
-def delete_default_run(games_client):
-    """ Delete default Run """
-    echo('Resetting the Simpl Div game default run...', ' done')
-    runs = games_client.runs.filter(game_slug='simpl-div')
-    for run in runs:
-        if run.name == 'default':
-            games_client.runs.delete(run.id)
+def delete_run(run):
+    """ Delete Run """
+    echo('Resetting the Simpl Div game run...', ' done')
+    run.delete()
 
 
 @click.command()
 @click.option('--reset', default=False, is_flag=True,
-              help="Delete default game run and recreate it from scratch")
-def command(reset):
+              help="Delete game run and recreate it from scratch")
+@click.option('--name', '-n', default='default', type=str,
+              help='Name of run to create. (defaults to "default")')
+def command(reset, name):
     """
     Create and initialize Simpl Div game.
     Create a "default" Simpl Div run.
@@ -40,11 +39,20 @@ def command(reset):
     )
     echo('getting or creating game: ', game.name)
 
-    # Handle resetting the game
-    if reset:
-        if click.confirm(
-                'Are you sure you want to delete the default game run and recreate from scratch?'):
-            delete_default_run(games_client)
+    if reset:  # Handle resetting the run
+        lookup = {'game': game.id, 'name': name}
+        try:
+            run = games_client.runs.get(**lookup)
+        except games_client.ResourceNotFound:
+            run = None
+        except games_client.TypeError:
+            run = None
+
+        if run is not None:
+            if click.confirm(
+                    'Are you sure you want to delete the "{0}" game run and '
+                    'recreate from scratch?'.format(name)):
+                delete_run(run)
 
     # Create required Roles ("Dividend" and "Divisor")
     dividend_role = games_client.roles.get_or_create(
@@ -75,7 +83,7 @@ def command(reset):
     echo('getting or creating phase: ', debrief_phase.name)
 
     # Add run with 2 fully populated worlds ready to play
-    run = add_run(game, 'default', 2, 1,
+    run = add_run(game, name, 2, 1,
                   dividend_role, divisor_role,
                   play_phase, games_client)
 
