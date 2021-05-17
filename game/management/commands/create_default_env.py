@@ -152,20 +152,20 @@ def add_world_users(run, world, user_name_root,
         Add players to the run with names based on user_name_root and first_number
         Add players to world assigning all required roles
     """
-    fac_user = games_client.users.get_or_create(
+    leader_user = games_client.users.get_or_create(
         password='leader',
         first_name='Div',
         last_name='Leader',
         email='leader@div.edu',
     )
-    echo('getting or creating user: ', fac_user.email)
+    echo('getting or creating user: ', leader_user.email)
 
     games_client.runusers.get_or_create(
-        user=fac_user.id,
+        user=leader_user.id,
         run=run.id,
         leader=True,
     )
-    echo('getting or creating leader runuser for user: ', fac_user.email)
+    echo('getting or creating leader runuser for user: ', leader_user.email)
 
     roles = [dividend_role, divisor_role]
     for n in range(len(roles)):
