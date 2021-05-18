@@ -127,6 +127,51 @@ To create a run with a non-default name, use:
 where:
  **name** is the run name (default is 'default') and the base of player email ids (default is 's')  
 
+## Modelservice Profiling
+
+### Run modelservice profiling tests locally
+
+1. Run simpl-games-api modelservice
+1. Run simpl-div-model modelservice via run_modelservice or run_guest
+
+In a separate terminal window, run the profiler:
+
+Create a test run named 'a' with 4 players named after the run (e.g. run 'a' with players 'a1@div.edu', etc)
+
+    ./manage.py create_default_env -n a
+
+To run each player test once for each user in the `emails/emails-2.txt` file, run:
+
+    profile.sh -m game.profilers -u emails/emails-2.txt -g 1
+
+to launch:
+
+    ./manage.py profile -m game.profilers -g 1 -w 100 --user-email a1@roe.edu
+    ./manage.py profile -m game.profilers -g 1 -w 100 --user-email a2@roe.edu
+    ./manage.py profile -m game.profilers -g 1 -w 100 --user-email a3@roe.edu
+    ...
+
+If a run is not configured to submit new decisions for each profile user, error messages will be printed out.
+
+Seeing:
+```
+→ Running task 'game.profilers.profile_http.ProfileHttpTestCase.profile_submit_final_decisions' on group '0' (2 workers).
+ERROR: Run must be in Play phase
+ERROR: Run must be in Play phase
+```
+means you need to move the runs to Play phase (aka run ./profile_setup.sh).
+
+~~Similarly, seeing:
+```
+→ Running task 'game.profilers.profile_http.ProfileHttpTestCase.profile_submit_final_decisions' on group '0' (2 workers).
+ERROR: A decision for player's role has already been submitted.
+```
+means you need to rewind to Setup phase, then advance to Play phase (aka run ./profile_setup.sh).~~
+
+
+
+
+
 
 Copyright © 2018 The Wharton School,  The University of Pennsylvania 
 

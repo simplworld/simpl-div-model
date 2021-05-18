@@ -144,3 +144,5 @@ SIMPL_GAMES_URL = os.environ.get('SIMPL_GAMES_URL', 'http://localhost:8100/apis'
 SIMPL_GAMES_AUTH = ('simpl@simpl.world', 'simpl')
 
 ROOT_TOPIC = 'world.simpl.sims.simpl-div'
+
+GAME_SLUG = 'simpl-div'

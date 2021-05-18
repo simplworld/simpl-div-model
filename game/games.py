@@ -1,5 +1,7 @@
 import asyncio
 
+from django.conf import settings
+
 from modelservice.games import Period, Run, Game
 from modelservice.games import subscribe, register
 
@@ -50,6 +52,6 @@ class SimplDivRun(Run):
                               phase=next_phase.json['name'])
 
 
-Game.register('simpl-div', [
+Game.register(settings.GAME_SLUG, [
     SimplDivPeriod, SimplDivRun
 ])
