@@ -146,31 +146,22 @@ To run each player test once for each user in the `emails/emails-2.txt` file, ru
 
 to launch:
 
-    ./manage.py profile -m game.profilers -g 1 -w 100 --user-email a1@roe.edu
-    ./manage.py profile -m game.profilers -g 1 -w 100 --user-email a2@roe.edu
-    ./manage.py profile -m game.profilers -g 1 -w 100 --user-email a3@roe.edu
+    ./manage.py profile -m game.profilers -g 1 -w 4 --user-email a1@roe.edu
+    ./manage.py profile -m game.profilers -g 1 -w 4 --user-email a2@roe.edu
+    ./manage.py profile -m game.profilers -g 1 -w 4 --user-email a3@roe.edu
     ...
 
 If a run is not configured to submit new decisions for each profile user, error messages will be printed out.
 
 Seeing:
 ```
-→ Running task 'game.profilers.profile_http.ProfileHttpTestCase.profile_submit_final_decisions' on group '0' (2 workers).
+→ Running task 'game.profilers.profile_http.ProfileHttpTestCase.profile_submit_decision' on group '0' (4 workers).
 ERROR: Run must be in Play phase
 ERROR: Run must be in Play phase
 ```
-means you need to move the runs to Play phase (aka run ./profile_setup.sh).
+means you need to move the run to Play phase by running:
 
-~~Similarly, seeing:
-```
-→ Running task 'game.profilers.profile_http.ProfileHttpTestCase.profile_submit_final_decisions' on group '0' (2 workers).
-ERROR: A decision for player's role has already been submitted.
-```
-means you need to rewind to Setup phase, then advance to Play phase (aka run ./profile_setup.sh).~~
-
-
-
-
+    ./manage.py create_default_env -n a --reset
 
 
 Copyright © 2018 The Wharton School,  The University of Pennsylvania 
