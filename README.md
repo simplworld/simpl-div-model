@@ -118,6 +118,16 @@ default run and recreate it from scratch like this:
 $ ./manage.py create_default_env --reset
 ```
 
+To create a run with a non-default name, use:
+
+```shell
+./manage.py create_default_env -n <name>
+```
+
+where:
+ **name** is the run name (default is 'default') and the base of player email ids (default is 's')  
+
+
 Copyright © 2018 The Wharton School,  The University of Pennsylvania 
 
 This program is free software; you can redistribute it and/or
