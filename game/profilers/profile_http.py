@@ -39,7 +39,7 @@ class ProfileHttpTestCase(ProfileCase):
                     # From here down, pull data from modelservice via WAMP
                     # matching the calls made by the simpl-react simpl decorator
 
-                    world_topic = 'edu.upenn.sims.simpl-div.model.world.' + str(runuser.world)
+                    world_topic = 'world.simpl.sims.simpl-div.model.world.' + str(runuser.world)
 
                     #  getRunUsers(world_topic)
                     get_active_runusers_uri = world_topic + '.get_active_runusers'
@@ -59,7 +59,7 @@ class ProfileHttpTestCase(ProfileCase):
                     # print(get_scope_tree_uri, '->')
                     # print(get_scope_tree_result)
 
-                    runuser_topic = 'edu.upenn.sims.simpl-div.model.runuser.' + str(runuser.id)
+                    runuser_topic = 'world.simpl.sims.simpl-div.model.runuser.' + str(runuser.id)
 
                     #  getRunUsers(world_topic)
                     await self.call(runuser_topic + '.get_active_runusers')  # ignore results
@@ -77,13 +77,13 @@ class ProfileHttpTestCase(ProfileCase):
                     # print(get_scenarios_result)
 
                     # getPhases('model:model.game')
-                    get_phases_uri = 'edu.upenn.sims.simpl-div.model.game.get_phases'
+                    get_phases_uri = 'world.simpl.sims.simpl-div.model.game.get_phases'
                     get_phases_ = await self.call(get_phases_uri)
                     # print(get_phases_uri, '->')
                     # print(get_phases_)
 
                     # getRoles('model:model.game')
-                    get_roles_uri = 'edu.upenn.sims.simpl-div.model.game.get_roles'
+                    get_roles_uri = 'world.simpl.sims.simpl-div.model.game.get_roles'
                     get_roles_result = await self.call(get_roles_uri)
                     # print(get_roles_uri, '->')
                     # print(get_roles_result)
@@ -119,7 +119,7 @@ class ProfileHttpTestCase(ProfileCase):
                     return
 
                 # submit player's decision
-                uri = 'edu.upenn.sims.simpl-div.model.period.' + \
+                uri = 'world.simpl.sims.simpl-div.model.period.' + \
                       str(first_period_id) + '.submit_decision'
                 if runuser.role is dividend_role:
                     decision = 5
