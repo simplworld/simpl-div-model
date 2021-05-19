@@ -132,7 +132,7 @@ where:
 ### Run modelservice profiling tests locally
 
 1. Run simpl-games-api modelservice
-1. Run simpl-div-model modelservice via run_modelservice or run_guest
+1. Run simpl-div-model modelservice
 
 In a separate terminal window, run the profiler:
 
@@ -140,26 +140,22 @@ Create a test run named 'a' with 4 players named after the run (e.g. run 'a' wit
 
     ./manage.py create_default_env -n a
 
-To run each player test once for each user in the `emails/emails-2.txt` file, run:
+To run each player test once for each user in the `emails/emails-4.txt` file, run:
 
-    profile.sh -m game.profilers -u emails/emails-2.txt -g 1
+    profile.sh -m game.profilers -u emails/emails-4.txt -g 1
 
 to launch:
 
-    ./manage.py profile -m game.profilers -g 1 -w 4 --user-email a1@roe.edu
-    ./manage.py profile -m game.profilers -g 1 -w 4 --user-email a2@roe.edu
-    ./manage.py profile -m game.profilers -g 1 -w 4 --user-email a3@roe.edu
-    ...
+    ./manage.py profile -m game.profilers -g 1 -w 4 --log-level error --user-email a1@div.edu
+    ./manage.py profile -m game.profilers -g 1 -w 4 --log-level error --user-email a2@div.edu
+    ./manage.py profile -m game.profilers -g 1 -w 4 --log-level error --user-email a3@div.edu
+    ./manage.py profile -m game.profilers -g 1 -w 4 --log-level error --user-email a4@div.edu
 
-If a run is not configured to submit new decisions for each profile user, error messages will be printed out.
+Once all tasks complete, message will be printed out indicating how many seconds it took to run all profile tests
 
-Seeing:
-```
-→ Running task 'game.profilers.profile_http.ProfileHttpTestCase.profile_submit_decision' on group '0' (4 workers).
-ERROR: Run must be in Play phase
-ERROR: Run must be in Play phase
-```
-means you need to move the run to Play phase by running:
+If the run is not configured to submit new decisions for each profile user, error messages will be printed out.
+
+Before rerunning the profiling test, recreate the test run:
 
     ./manage.py create_default_env -n a --reset
 
