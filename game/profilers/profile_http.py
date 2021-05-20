@@ -37,7 +37,7 @@ class ProfileHttpTestCase(ProfileCase):
                     )
 
                     # From here down, pull data from modelservice via WAMP
-                    # matching the calls made by the simpl-react simpl decorator
+                    # emulating the calls made by the simpl-react simpl decorator
 
                     world_topic = 'world.simpl.sims.simpl-div.model.world.' + str(runuser.world)
 
@@ -107,13 +107,6 @@ class ProfileHttpTestCase(ProfileCase):
                     first_period_id = get_scope_tree_result['children'][0]['children'][0]['pk']
                     # print('first_period_id: ', first_period_id)
 
-                    # debug simpl-div-ops#37
-                    # decisions = await coro_session.decision.filter(
-                    #     period=first_period_id,
-                    #     role=runuser.role
-                    # )
-                    # if len(decisions) > 0:
-                    #     raise Exception("ERROR: A decision for player's role has already been submitted.")
                 except Exception as e:
                     print(e)
                     return
