@@ -25,7 +25,7 @@ class ProfileHttpTestCase(ProfileCase):
             async with coro_client as coro_session:
                 try:
                     # Determine Run and Runuser based on player email
-                    run_name = email[0] # run name is a single letter
+                    run_name = email[0]  # run name is a single letter
                     run = await coro_session.runs.get(
                         game_slug=settings.GAME_SLUG,
                         name=run_name,
@@ -86,6 +86,9 @@ class ProfileHttpTestCase(ProfileCase):
                     run_phase_name = get_current_run_and_phase_result['phase']['data']['name']
                     if run_phase_name != 'Play':
                         raise Exception("ERROR: Run must be in Play phase")
+
+                    if len(get_scope_tree_result['children'][0]['children']) > 1:
+                        raise Exception("ERROR: Player's world has more than one period")
 
                     # Check whether this world already has a result
                     first_period = get_scope_tree_result['children'][0]['children'][0]

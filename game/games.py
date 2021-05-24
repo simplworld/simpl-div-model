@@ -22,6 +22,8 @@ class SimplDivPeriod(Period):
         for k in kwargs:
             self.session.log.info("submit_decision: Key: {}".format(k))
 
+        self.session.log.info("submit_decision: operand: {}".format(operand))
+
         user = kwargs['user']
         runuser = self.game.get_scope('runuser', user.runuser.pk)
         role = runuser.role
