@@ -134,22 +134,34 @@ where:
 1. Run simpl-games-api modelservice
 1. Run simpl-div-model modelservice
 
-In a separate terminal window, run the profiler:
+Create and activate a virtual environment:
+
+```shell
+$ mkvirtualenv simpl-div-model
+$ pip install -r requirements.txt
+```
 
 Create a test run named 'a' with 4 players named after the run (e.g. run 'a' with players 'a1@div.edu', etc)
 
-    ./manage.py create_default_env -n a
+```shell
+$ ./manage.py create_default_env -n a
+```
 
 To run each player test once for each user in the `emails/emails-4.txt` file, run:
 
-    profile.sh -m game.profilers -u emails/emails-4.txt -g 1
+```shell
+$ profile.sh -m game.profilers -u emails/emails-4.txt -g 1
+```
 
-to launch:
+to launch a separate profiling task for each email in the file:
 
-    ./manage.py profile -m game.profilers -g 1 -w 4 --log-level error --user-email a1@div.edu
-    ./manage.py profile -m game.profilers -g 1 -w 4 --log-level error --user-email a2@div.edu
-    ./manage.py profile -m game.profilers -g 1 -w 4 --log-level error --user-email a3@div.edu
-    ./manage.py profile -m game.profilers -g 1 -w 4 --log-level error --user-email a4@div.edu
+```
+./manage.py profile -m game.profilers -g 1 -w 4 --log-level error --user-email a1@div.edu
+./manage.py profile -m game.profilers -g 1 -w 4 --log-level error --user-email a2@div.edu
+./manage.py profile -m game.profilers -g 1 -w 4 --log-level error --user-email a3@div.edu
+./manage.py profile -m game.profilers -g 1 -w 4 --log-level error --user-email a4@div.edu
+
+```
 
 Once all tasks complete, message will be printed out indicating how many seconds it took to run all profile tests
 
