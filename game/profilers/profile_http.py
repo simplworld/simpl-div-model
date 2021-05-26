@@ -20,6 +20,9 @@ class ProfileHttpTestCase(ProfileCase):
             # which assumes run name is a single letter
             decision = int(email[1:email.find('@')])
 
+            password = email[0:email.find('@')]
+            # print('password: ', password)
+
             coro_client = games_client_factory()
 
             async with coro_client as coro_session:
@@ -108,7 +111,7 @@ class ProfileHttpTestCase(ProfileCase):
                       str(first_period_id) + '.submit_decision'
 
                 if decision is not None:
-                    status = await self.call_as(email, uri, decision)
+                    status = await self.call_as(email, password, uri, decision)
                     if status != 'ok':
                         raise ValueError(
                             "submit_decision: status=" + status)
